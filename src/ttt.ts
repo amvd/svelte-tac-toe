@@ -10,14 +10,12 @@ interface TicTacToe {
   turn: number;
 }
 
-export const WIN = 'win';
-export const TIE = 'tie';
+export const WIN = "win";
+export const TIE = "tie";
 
 export const DEFAULT_ROWS = 3;
 export const DEFAULT_COLS = 3;
 export const DEFAULT_PLAYERS = 2;
-
-export const SettingsError = new Error("Settings invalid.");
 
 class TicTacToe {
   constructor(
@@ -43,7 +41,7 @@ class TicTacToe {
 
   __validateSettings(rows: number, columns: number, players: number) {
     if (rows < 2 || columns < 2 || players < 2) {
-      throw SettingsError;
+      throw new Error("Settings invalid.");
     }
   }
 
@@ -78,7 +76,6 @@ class TicTacToe {
   setPlayerName(playerIndex: number, newName: string) {
     if (playerIndex < 0 || playerIndex >= this.players.length) {
       throw new Error(`Player ${playerIndex} does not exist.`);
-      return;
     }
 
     this.players[playerIndex] = newName;
@@ -87,10 +84,10 @@ class TicTacToe {
   }
 
   __iteratePlayer() {
-    console.log('changing player from: ', this.activePlayer)
+    console.log("changing player from: ", this.activePlayer);
     this.activePlayer =
       this.activePlayer === this.players.length - 1 ? 0 : this.activePlayer + 1;
-    console.log('to: ', this.activePlayer)
+    console.log("to: ", this.activePlayer);
   }
 
   // Returns true if winning move and false otherwise.
@@ -116,13 +113,13 @@ class TicTacToe {
     }
 
     this.turn++;
-    
+
     if (this.turn >= this.rows * this.columns) {
       return TIE;
     }
 
     this.__iteratePlayer();
-    
+
     return null;
   }
 
